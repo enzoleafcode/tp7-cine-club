@@ -16,6 +16,20 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: cineclubdb
+          POSTGRES_USER: cineclubuser
+          POSTGRES_PASSWORD: cineclubpwd
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U cineclubuser -d cineclubdb"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
@@ -37,7 +51,6 @@ jobs:
           JWT_ACCESS_EXPIRATION: 900000
           JWT_REFRESH_EXPIRATION: 604800000
         run: mvn test
-
 
       - name: Build JAR
         run: mvn package -DskipTests
