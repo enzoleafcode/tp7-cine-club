@@ -46,7 +46,7 @@ jobs:
           DB_USERNAME: cineclubuser
           DB_PASSWORD: cineclubpwd
           DB_HOST: localhost
-          DB_PORT: 5440
+          DB_PORT: 5432
           JWT_SECRET: dce6efc6447f20e4ded3a58e84bb5d431baaa2186e42b7cfd16f8314126852f2
           JWT_ACCESS_EXPIRATION: 900000
           JWT_REFRESH_EXPIRATION: 604800000
