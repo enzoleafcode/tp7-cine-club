@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des films</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<h1 th:if="${selectedGenre == null}">Liste des films</h1>
+<h1 th:if="${selectedGenre != null}">
+    Films du genre : <span th:text="${selectedGenre}"></span>
+</h1>
+
+<form th:action="@{/movies/genre}" method="get">
+    <label for="genre">Rechercher par genre :</label>
+    <input type="text" id="genre" name="genre">
+    <button type="submit">Rechercher</button>
+</form>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Titre</th>
+        <th>Année</th>
+        <th>Genre</th>
+        <th>Réalisateur</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="movie : ${movies}">
+        <td>
+            <a th:href="@{/movies/{id}(id=${movie.id})}" th:text="${movie.title}"></a>
+        </td>
+        <td th:text="${movie.releaseYear}"></td>
+        <td th:text="${movie.genre}"></td>
+        <td th:text="${movie.directorFullName}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

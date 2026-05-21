@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Ciné-Club</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="page-container hero">
+    <p class="eyebrow">Ciné-Club</p>
+    <h1>Bienvenue sur le Ciné-Club</h1>
+    <p class="hero-text">
+        Retrouvez vos films, réalisateurs et une interface web plus agréable.
+    </p>
+
+    <div class="hero-actions">
+        <a sec:authorize="isAuthenticated()" class="btn btn-primary" th:href="@{/movies}">Voir les films</a>
+        <a sec:authorize="!isAuthenticated()" class="btn btn-primary" th:href="@{/login}">Voir les films</a>
+
+        <a sec:authorize="isAuthenticated()" class="btn btn-secondary" th:href="@{/directors}">Voir les réalisateurs</a>
+        <a sec:authorize="!isAuthenticated()" class="btn btn-secondary" th:href="@{/login}">Voir les réalisateurs</a>
+    </div>
+</main>
+</body>
+</html>

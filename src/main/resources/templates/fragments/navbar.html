@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<header th:fragment="navbar" class="site-header">
+    <div class="page-container nav-shell">
+        <a class="brand" th:href="@{/}">
+            <span class="brand-mark">🎬</span>
+            <span>Ciné-Club</span>
+        </a>
+
+        <nav class="main-nav">
+            <a sec:authorize="isAuthenticated()" th:href="@{/movies}">Films</a>
+            <a sec:authorize="!isAuthenticated()" th:href="@{/login}">Films</a>
+
+            <a sec:authorize="isAuthenticated()" th:href="@{/directors}">Réalisateurs</a>
+            <a sec:authorize="!isAuthenticated()" th:href="@{/login}">Réalisateurs</a>
+        </nav>
+
+        <div class="nav-actions">
+            <span sec:authorize="!isAuthenticated()" class="auth-links">
+                <a class="btn btn-secondary" th:href="@{/login}">Connexion</a>
+                <a class="btn btn-primary" th:href="@{/register}">Inscription</a>
+            </span>
+
+            <span sec:authorize="isAuthenticated()" class="auth-links">
+                <span class="user-badge" sec:authentication="name">email</span>
+                <a sec:authorize="hasRole('ADMIN')" class="btn btn-primary" th:href="@{/movies/new}">
+                    Ajouter un film
+                </a>
+                <a class="btn btn-secondary" th:href="@{/logout}">Déconnexion</a>
+            </span>
+        </div>
+    </div>
+</header>
+</body>
+</html>

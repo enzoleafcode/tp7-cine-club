@@ -1,0 +1,35 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: tp7-cineclub-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5440:5432"
+    volumes:
+      - postgres_data_tp7:/var/lib/postgresql/data
+
+  app:
+    build: .
+    image: movie-app
+    container_name: tp7-cineclub-app
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ACCESS_EXPIRATION: ${JWT_ACCESS_EXPIRATION}
+      JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION}
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data_tp7:

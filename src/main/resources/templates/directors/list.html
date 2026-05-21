@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des réalisateurs</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<h1>Liste des réalisateurs</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Nationalité</th>
+        <th>Date de naissance</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="director : ${directors}">
+        <td th:text="${director.firstName}"></td>
+        <td th:text="${director.lastName}"></td>
+        <td th:text="${director.nationality}"></td>
+        <td th:text="${director.birthDate}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
